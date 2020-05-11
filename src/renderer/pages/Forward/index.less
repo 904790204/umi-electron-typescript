@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex: 1 0 auto;
+}
+.leftBar {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  .leftBarItem {
+    height: 30px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  .leftBarItemOn {
+    background-color: #cce3f7;
+  }
+  .leftBarOperation {
+    height: 40px;
+    padding: 0 20px;
+    margin-top: auto;
+    line-height: 40px;
+    cursor: pointer;
+    &:hover {
+      color: #1890ff;
+    }
+  }
+}
+.rightContent {
+  background-color: #ffffff;
+  flex: 1 0 auto;
+  display: flex;
+  .rightContentIndex {
+    width: 40px;
+    label {
+      display: block;
+      text-align: center;
+      line-height: 22px;
+    }
+  }
+  .rightContentTextarea {
+    border: none;
+    flex: 1 0 auto;
+    outline: none;
+    padding: 0;
+    line-height: 22px;
+  }
+}

@@ -8,7 +8,7 @@ let mainWindow: Electron.BrowserWindow | null;
 function createWindow() {
   mainWindow = new BrowserWindow({
     height: 600,
-    width: 800,
+    width: 1200,
   });
 
   setApplicationMenu();
@@ -24,7 +24,7 @@ function createWindow() {
         pathname: path.join(__dirname, './dist/renderer/index.html'),
         protocol: 'file:',
         slashes: true,
-      }),
+      })
     );
   }
 
