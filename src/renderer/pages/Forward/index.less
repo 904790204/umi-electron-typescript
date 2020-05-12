@@ -48,3 +48,168 @@
     line-height: 22px;
   }
 }
+
+@font-editor: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+@bg_left: #eef0f5;
+@bd_color: @bg_left * 0.8;
+@bg_left_dark: #2f343f;
+.codemirror {
+  height: 100%;
+  box-sizing: border-box;
+  font-family: @font-editor;
+  padding: 4px 4px 4px 0;
+  background: @bg_left;
+  font-size: 13px;
+  line-height: 1.6em;
+
+  & > :global(.CodeMirror) {
+    border-radius: 4px;
+    border: 1px solid @bd_color * 1.1;
+    z-index: 4; // 修复代码行数的背景与左下角圆角冲突的问题
+
+    :global {
+      .CodeMirror-scrollbar-filler {
+        opacity: 0;
+      }
+
+      .CodeMirror-vscrollbar,
+      .CodeMirror-hscrollbar {
+        &::-webkit-scrollbar {
+          width: 0;
+          height: 0;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    :global {
+      .CodeMirror-vscrollbar {
+        & > div {
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar {
+          width: 8px;
+          height: 0;
+        }
+
+        .my-scroll-0();
+      }
+
+      .CodeMirror-hscrollbar {
+        &::-webkit-scrollbar {
+          width: 0;
+          height: 8px;
+        }
+
+        .my-scroll-0();
+      }
+    }
+  }
+
+  // CodeMirror
+
+  &.readonly {
+    :global {
+      .CodeMirror {
+        .CodeMirror-linenumber {
+          cursor: default;
+        }
+
+        .CodeMirror-cursors {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.show_search {
+    padding-bottom: 40px;
+  }
+}
+
+:global {
+  .CodeMirror {
+    font-family: @font-editor !important;
+  }
+
+  .cm-s-default .cm-comment {
+    color: #090;
+  }
+
+  .cm-s-default .cm-ip {
+    color: #00a;
+    font-weight: bold;
+  }
+
+  .cm-s-default .cm-hl {
+    background: #ff0;
+  }
+
+  .CodeMirror-gutters {
+    border-right: none;
+    padding-right: 6px;
+    background: #fafafa;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .CodeMirror-linenumber {
+    cursor: pointer;
+    font-size: 12px;
+  }
+}
+
+:global(.theme-dark) {
+  .root {
+    background: @bg_left_dark;
+
+    & > :global(.CodeMirror) {
+      border: 1px solid #444;
+    }
+  }
+
+  .cm-s-default .cm-comment {
+    //color: #090;
+  }
+
+  .cm-s-default .cm-ip {
+    color: #096dd9;
+  }
+
+  .cm-s-default .cm-hl {
+    //background: #ff0;
+  }
+}
+
+.my-scroll-0() {
+  &::-webkit-scrollbar {
+    position: absolute;
+    //width: 8px;
+    //height: 8px;
+    //height: 0;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    //border-radius: 16px;
+  }
+  &::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.05);
+    //background: #f00;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.5);
+    //border-radius: 16px;
+  }
+}
+
+.my-scroll() {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 0;
+  }
+
+  &:hover {
+    .my-scroll-0();
+  }
+}

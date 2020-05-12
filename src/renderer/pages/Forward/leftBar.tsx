@@ -7,13 +7,9 @@ import { PlusOutlined } from '@ant-design/icons';
 import classname from 'classname';
 
 function LeftBar(props: any) {
-  const [editView, setEditView] = useState(true);
+  const [editView, setEditView] = useState(false);
   const [form] = Form.useForm();
-  const onLeftItemChange = (
-    state: boolean,
-    event: Event,
-    index: number
-  ): void => {
+  const onLeftItemChange = (state: boolean, index: number): void => {
     let leftBar = [...props.leftBar];
     leftBar[index].open = state;
     props.dispatch({
@@ -78,9 +74,7 @@ function LeftBar(props: any) {
             <Switch
               checked={el.open}
               size="small"
-              onClick={(state: boolean, event: Event) =>
-                onLeftItemChange(state, event, index)
-              }
+              onClick={(state: boolean) => onLeftItemChange(state, index)}
             ></Switch>
           </div>
         );

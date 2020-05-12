@@ -65,7 +65,12 @@
     ]
   },
   "devDependencies": {
+    "@umijs/preset-react": "1.x",
+    "@umijs/test": "^3.1.2",
+    "antd": "^4.2.0",
     "awesome-typescript-loader": "^5.2.1",
+    "axios": "^0.19.2",
+    "classname": "^0.0.0",
     "concurrently": "^5.1.0",
     "electron": "^4.0.5",
     "electron-builder": "^20.38.5",
@@ -73,23 +78,18 @@
     "electron-webpack": "^2.6.2",
     "electron-webpack-ts": "^3.1.1",
     "jest": "^24.9.0",
-    "ts-loader": "^5.3.3",
-    "tslint": "^5.10.0",
-    "typescript": "^3.2.4",
-    "uglifyjs-webpack-plugin": "^2.1.1",
-    "webpack": "4.28.0",
-    "webpack-cli": "^3.2.1",
-    "webpack-merge": "^4.2.1",
-    "@umijs/preset-react": "1.x",
-    "@umijs/test": "^3.1.2",
-    "antd": "^4.2.0",
-    "axios": "^0.19.2",
-    "classname": "^0.0.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.10.0",
+    "typescript": "^3.2.4",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "umi": "^3.1.2",
+    "webpack": "4.28.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-merge": "^4.2.1",
     "yorkie": "^2.0.0"
   },
   "electronWebpack": {
@@ -99,5 +99,9 @@
     "renderer": {
       "sourceDirectory": null
     }
+  },
+  "dependencies": {
+    "codemirror": "5.50.2",
+    "lodash": "^4.17.15"
   }
 }

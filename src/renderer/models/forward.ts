@@ -8,7 +8,7 @@ const m: forwardState | Model = {
   state: {
     leftBar: [],
     activeContent: [],
-    activeIndex: 1,
+    activeIndex: 0,
   },
   effects: {
     *getLeftBar({ payload }, { select, call, put }) {
