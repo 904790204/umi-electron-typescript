@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'dva';
 import { leftBar } from '@/types/forward';
 import styles from './index.less';
-import { Switch, Modal, Form, Input, Button } from 'antd';
+import { Switch, Modal, Form, Input } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import classname from 'classname';
 

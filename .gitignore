@@ -1,4 +1,4 @@
 node_modules
 dist
-src/renderer/pages/.umi
 release
+.umi
