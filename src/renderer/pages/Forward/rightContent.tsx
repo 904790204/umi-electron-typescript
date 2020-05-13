@@ -7,13 +7,57 @@ import CodeMirror from 'codemirror';
 import 'codemirror/addon/comment/comment';
 import 'codemirror/lib/codemirror.css';
 import modeHosts from './cm_hl';
-import debounce from 'lodash/debounce';
-let stash: any = {};
-modeHosts();
-function RightContent(props: any) {
-  let [codemirror, setCodemirror]: [any, any] = useState(null);
-  let textArea = useRef();
 
+let codemirror: any = null;
+let outProps: any = null;
+// 默认配置
+modeHosts();
+// 初始化CodeMirror
+const initCodemirror = (): void => {
+  // 初始化
+  codemirror = CodeMirror.fromTextArea(document.getElementById('textArea'), {
+    lineNumbers: true,
+    mode: 'hosts',
+  });
+  // setCodemirror(cm);
+  // 设置尺寸
+  codemirror.setSize('100%', '100%');
+  // 修改时
+  codemirror.on('change', a => {
+    let v = a.getDoc().getValue();
+    onActiveContentChange(v);
+  });
+  codemirror.on('gutterClick', (c, n) => {
+    // 点击行数
+  });
+};
+const refreshProps = props => {
+  outProps = props;
+};
+const onActiveContentChange = (val: any): void => {
+  if (outProps.leftBar.length === 0) return;
+  let arr: Array<content> = val.split('\n');
+  arr = arr.map((el: any) => {
+    let index = el.includes(' ') ? el.indexOf(' ') : el.length;
+    return {
+      host: el.substr(index + 1, el.length),
+      ip: el.substr(0, index),
+    };
+  });
+  let leftBar = [...outProps.leftBar];
+  leftBar[outProps.activeIndex].content = arr;
+  outProps.dispatch({
+    type: 'forward/save',
+    payload: {
+      leftBar,
+    },
+  });
+};
+
+function RightContent(props: any) {
+  // let [codemirror, setCodemirror]: [any, any] = useState(null);
+  let textArea = useRef();
+  refreshProps(props);
   useEffect(() => {
     initCodemirror();
   }, []);
@@ -24,50 +68,9 @@ function RightContent(props: any) {
     codemirror && codemirror.setValue(value);
   }, [props.activeContent]);
 
-  // 初始化CodeMirror
-  const initCodemirror = (): void => {
-    // 初始化
-    let cm = CodeMirror.fromTextArea(textArea.current, {
-      lineNumbers: true,
-      mode: 'hosts',
-    });
-    setCodemirror(cm);
-    // 设置尺寸
-    cm.setSize('100%', '100%');
-    // 修改时
-    cm.on('change', a => {
-      let v = a.getDoc().getValue();
-      stash.onActiveContentChange(v);
-    });
-    cm.on('gutterClick', (c, n) => {
-      // 点击行数
-    });
-  };
-
-  const onActiveContentChange = (val: any): void => {
-    if (props.leftBar.length === 0) return;
-    let arr: Array<content> = val.split('\n');
-    arr = arr.map((el: any) => {
-      let index = el.includes(' ') ? el.indexOf(' ') : el.length;
-      return {
-        host: el.substr(index + 1, el.length),
-        ip: el.substr(0, index),
-      };
-    });
-    let leftBar = [...props.leftBar];
-    leftBar[props.activeIndex].content = arr;
-    props.dispatch({
-      type: 'forward/save',
-      payload: {
-        leftBar,
-      },
-    });
-  };
-  stash.onActiveContentChange = onActiveContentChange;
-
   return (
     <div className={classname(styles.rightContent, styles.codemirror)}>
-      <textarea ref={textArea} defaultValue={''}></textarea>
+      <textarea id="textArea" ref={textArea} defaultValue={''}></textarea>
     </div>
   );
 }

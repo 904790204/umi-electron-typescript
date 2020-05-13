@@ -6,9 +6,9 @@ import RightContent from './rightContent';
 
 function Forward(props: any) {
   useEffect(() => {
-    props.dispatch({
-      type: 'forward/getLeftBar',
-    });
+    // props.dispatch({
+    //   type: 'forward/getLeftBar',
+    // });
   }, []);
   return (
     <div className={styles.container}>

@@ -2,14 +2,12 @@ import { Model } from 'dva';
 import { AnyAction } from 'redux';
 import { content, forwardState } from '../types/forward';
 import * as forward from '../services/forward';
-
+const { remote } = window.require('electron');
+const store = remote.getGlobal('store');
+import { forWard } from './initState';
 const m: forwardState | Model = {
   namespace: 'forward',
-  state: {
-    leftBar: [],
-    activeContent: [],
-    activeIndex: 0,
-  },
+  state: forWard,
   effects: {
     *getLeftBar({ payload }, { select, call, put }) {
       let { data } = yield call(forward.fetchLeftBar);
@@ -46,10 +44,12 @@ const m: forwardState | Model = {
   },
   reducers: {
     save(state: forwardState, action: AnyAction) {
-      return {
+      const data = {
         ...state,
         ...action.payload,
       };
+      store.setStore('forWard', data);
+      return data;
     },
   },
 };
